@@ -4,6 +4,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
+
 import rsync.RsyncPlugin;
 
 
@@ -25,10 +26,10 @@ public class rsyncPut extends Selection implements IWorkbenchWindowActionDelegat
 		if (m_selection != null && !m_selection.isEmpty()){
 			RsyncPlugin.setProjectName(getProjectName());
 		} else {
-			RsyncPlugin.setProjectName("-1");
+			RsyncPlugin.setProjectName("-1"); //$NON-NLS-1$
 		}			
-		boolean b_sync = MessageDialog.openQuestion(RsyncPlugin.getShell(),"Syncronize","Are you sure to syncronize the remote server?");		
-		if (b_sync) RsyncPlugin.execRsyncCommand("Sincronizing remote project...",2);
+		boolean b_sync = MessageDialog.openQuestion(RsyncPlugin.getShell(),Messages.MESG_TITLE_SYNCHRONIZE,Messages.MESG_MESG_CONFIRM_SYNCHRONIZE_TEXT);		
+		if (b_sync) RsyncPlugin.execRsyncCommand(Messages.MESG_SYNCHRONIZING_REMOTE_PROJECT,2);
 	}
 
 	/**

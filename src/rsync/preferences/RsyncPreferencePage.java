@@ -3,6 +3,7 @@ package rsync.preferences;
 import org.eclipse.jface.preference.*;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.IWorkbench;
+
 import rsync.RsyncPlugin;
 
 public class RsyncPreferencePage
@@ -12,7 +13,7 @@ public class RsyncPreferencePage
 	public RsyncPreferencePage() {
 		super(GRID);
 		setPreferenceStore(RsyncPlugin.getDefault().getPreferenceStore());
-		setDescription("Preferenze di rsync");
+		setDescription(Messages.MESG_RSYNC_PREFERENCES);
 	}
 	
 	/**
@@ -22,11 +23,11 @@ public class RsyncPreferencePage
 	 * restore itself.
 	 */
 	public void createFieldEditors() {
-		addField(new DirectoryFieldEditor(PreferenceConstants.P_PATH_RSYNC, "Dove si trova rsync:", getFieldEditorParent()));
-		addField(new StringFieldEditor(PreferenceConstants.P_PAR_RSYNC_PUTGET, "Parametri per sincronizzazione locale/remoto (e viceversa):", getFieldEditorParent()));
-		addField(new StringFieldEditor(PreferenceConstants.P_PAR_RSYNC_PUTGET_ONLY, "Parametri per il solo upload/download aggiornamenti:", getFieldEditorParent()));
-		addField(new StringFieldEditor(PreferenceConstants.P_PAR_RSYNC_RUNDRY, "Parametri per la simulazione  di sincronizzazione locale/remoto (e viceversa):", getFieldEditorParent()));	
-		addField(new StringFieldEditor(PreferenceConstants.P_PAR_RSYNC_EXCLUSIONS, "Escludi per tutti i progetti i seguenti file o directory\n(usare sempre la formula --exclude='XYZ'):", getFieldEditorParent()));		
+		addField(new DirectoryFieldEditor(PreferenceConstants.P_PATH_RSYNC, Messages.MESG_RSYNC_LOCATION, getFieldEditorParent()));
+		addField(new StringFieldEditor(PreferenceConstants.P_PAR_RSYNC_PUTGET, Messages.MESG_SYNC_PARAMETERS, getFieldEditorParent()));
+		addField(new StringFieldEditor(PreferenceConstants.P_PAR_RSYNC_PUTGET_ONLY, Messages.MESG_UPLOAD_DOWNLOAD_PARAMETERS, getFieldEditorParent()));
+		addField(new StringFieldEditor(PreferenceConstants.P_PAR_RSYNC_RUNDRY, Messages.MESG_SYNC_SIMULATION_PARAMETERS, getFieldEditorParent()));	
+		addField(new StringFieldEditor(PreferenceConstants.P_PAR_RSYNC_EXCLUSIONS, Messages.MESG_FILES_FOLDER_TO_EXCLUDE, getFieldEditorParent()));		
 	}
 
 	/* (non-Javadoc)

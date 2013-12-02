@@ -7,16 +7,21 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.osgi.framework.BundleContext;
+
 import rsync.ui.ConsoleDisplayMgr;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.QualifiedName;
+
 import rsync.preferences.PreferenceConstants;
 import rsync.properties.IProperty;
+
 import org.eclipse.ui.IWorkbenchWindow;
+
 import java.io.*;
 
 /**
@@ -36,8 +41,8 @@ public class RsyncPlugin extends AbstractUIPlugin {
 
 	//The shared instance.
 	private static RsyncPlugin plugin;
-	public static ConsoleDisplayMgr cons = ConsoleDisplayMgr.getDefault("Rsync console");
-	private String m_projectName="";
+	public static ConsoleDisplayMgr cons = ConsoleDisplayMgr.getDefault("Rsync console"); //$NON-NLS-1$
+	private String m_projectName=""; //$NON-NLS-1$
     
 	/**
 	 * The constructor.
@@ -112,21 +117,21 @@ public class RsyncPlugin extends AbstractUIPlugin {
 		 */
 		IPreferenceStore store = RsyncPlugin.getDefault().getPreferenceStore();		
 		String pathRsync = store.getString(PreferenceConstants.P_PATH_RSYNC);
-		String putGet =  " "+store.getString(PreferenceConstants.P_PAR_RSYNC_PUTGET)+" ";
-		String runDry =  " "+store.getString(PreferenceConstants.P_PAR_RSYNC_RUNDRY)+" ";
-		String putGetOnly =  " "+store.getString(PreferenceConstants.P_PAR_RSYNC_PUTGET_ONLY)+" ";
-		String excludeGlobal = " "+store.getString(PreferenceConstants.P_PAR_RSYNC_EXCLUSIONS)+" ";
+		String putGet =  " "+store.getString(PreferenceConstants.P_PAR_RSYNC_PUTGET)+" "; //$NON-NLS-1$ //$NON-NLS-2$
+		String runDry =  " "+store.getString(PreferenceConstants.P_PAR_RSYNC_RUNDRY)+" "; //$NON-NLS-1$ //$NON-NLS-2$
+		String putGetOnly =  " "+store.getString(PreferenceConstants.P_PAR_RSYNC_PUTGET_ONLY)+" "; //$NON-NLS-1$ //$NON-NLS-2$
+		String excludeGlobal = " "+store.getString(PreferenceConstants.P_PAR_RSYNC_EXCLUSIONS)+" "; //$NON-NLS-1$ //$NON-NLS-2$
 
 		// elimino i ritorni a capo
-		excludeGlobal = excludeGlobal.replace("\n"," ");
-		excludeGlobal = excludeGlobal.replace("\r\n"," ");
-		excludeGlobal = excludeGlobal.replace("\r"," ");		
+		excludeGlobal = excludeGlobal.replace("\n"," "); //$NON-NLS-1$ //$NON-NLS-2$
+		excludeGlobal = excludeGlobal.replace("\r\n"," "); //$NON-NLS-1$ //$NON-NLS-2$
+		excludeGlobal = excludeGlobal.replace("\r"," ");		 //$NON-NLS-1$ //$NON-NLS-2$
 		
 		/**
 		 * REFERENZIO IL PROGETTO...
 		 */
 		IWorkspace ws = ResourcesPlugin.getWorkspace(); // prendo l'area di lavoro 
-		if (plugin.m_projectName!="-1")
+		if (plugin.m_projectName!="-1") //$NON-NLS-1$
 		{
 			IProject prj = ws.getRoot().getProject(plugin.m_projectName); // ricavatto dalla classe Selection.java
 			
@@ -134,91 +139,91 @@ public class RsyncPlugin extends AbstractUIPlugin {
 			 * RECUPERO LE PREFERENZE PER PROGETTO
 			 */
 			try {
-				String serverName =""; // nome server remoto
+				String serverName =""; // nome server remoto //$NON-NLS-1$
 				try {
-					serverName= prj.getPersistentProperty(new QualifiedName("", IProperty.SERVERNAME));
+					serverName= prj.getPersistentProperty(new QualifiedName("", IProperty.SERVERNAME)); //$NON-NLS-1$
 				} catch (CoreException e) {
-					serverName ="";
-					RsyncPlugin.consolePrintln("Error retriving server name.");
+					serverName =""; //$NON-NLS-1$
+					RsyncPlugin.consolePrintln(Messages.MESG_SERVER_ERROR_RETRIEVING_SERVER_NAME);
 				}
-				String userName =""; // nome utente
+				String userName =""; // nome utente //$NON-NLS-1$
 				try {
-					userName= prj.getPersistentProperty(new QualifiedName("", IProperty.USERNAME));
+					userName= prj.getPersistentProperty(new QualifiedName("", IProperty.USERNAME)); //$NON-NLS-1$
 				} catch (CoreException e) {
-					userName ="";
-					RsyncPlugin.consolePrintln("Error retriving username.");
+					userName =""; //$NON-NLS-1$
+					RsyncPlugin.consolePrintln(Messages.MESG_ERRROR_RETRIEVING_USERNAME);
 				}
-				String remotePath =""; // percorso remoto
+				String remotePath =""; // percorso remoto //$NON-NLS-1$
 				try {
-					remotePath= prj.getPersistentProperty(new QualifiedName("", IProperty.REMOTEPATH));
+					remotePath= prj.getPersistentProperty(new QualifiedName("", IProperty.REMOTEPATH)); //$NON-NLS-1$
 				} catch (CoreException e) {
-					remotePath ="";
-					RsyncPlugin.consolePrintln("Errore retriving remote path.");
+					remotePath =""; //$NON-NLS-1$
+					RsyncPlugin.consolePrintln(Messages.MESG_ERROR_RETRIEVING_REMOTE_PATH);
 				}
-				String excludePrj =""; // elenco dei file o directory da escludere
+				String excludePrj =""; // elenco dei file o directory da escludere //$NON-NLS-1$
 				try {
-					excludePrj= prj.getPersistentProperty(new QualifiedName("", IProperty.EXCLUDE));
+					excludePrj= prj.getPersistentProperty(new QualifiedName("", IProperty.EXCLUDE)); //$NON-NLS-1$
 					
 					// elimino i ritorni a capo
-					excludePrj = excludePrj.replace("\n"," ");
-					excludePrj = excludePrj.replace("\r\n"," ");
-					excludePrj = excludePrj.replace("\r"," ");	
+					excludePrj = excludePrj.replace("\n"," "); //$NON-NLS-1$ //$NON-NLS-2$
+					excludePrj = excludePrj.replace("\r\n"," "); //$NON-NLS-1$ //$NON-NLS-2$
+					excludePrj = excludePrj.replace("\r"," ");	 //$NON-NLS-1$ //$NON-NLS-2$
 					
 				} catch (CoreException e) {
-					excludePrj ="";
-					RsyncPlugin.consolePrintln("Error retriving exclude dirs.");
+					excludePrj =""; //$NON-NLS-1$
+					RsyncPlugin.consolePrintln(Messages.MESG_ERROR_RETRIEVING_EXCLUDED_DIRS);
 				}					
 				
 				/**
 				 * AGGIUSTO IL PERCORSO REMOTO... in questo modo mi assicuro di eliminare eventuali "/" finali
 				 */
-				String strArray[] = remotePath.split("/");
-				remotePath="";
+				String strArray[] = remotePath.split("/"); //$NON-NLS-1$
+				remotePath=""; //$NON-NLS-1$
 				for (int i_idx=0; i_idx < strArray.length; i_idx++)
 				{
 					// RsyncPlugin.consolePrintln("/ --- "+strArray[i_idx]+"\n"); // x DEBUG
-					if (!strArray[i_idx].equals("")) remotePath = remotePath.concat("/"+strArray[i_idx]);
+					if (!strArray[i_idx].equals("")) remotePath = remotePath.concat("/"+strArray[i_idx]); //$NON-NLS-1$ //$NON-NLS-2$
 				}
 				
 				/**
 				 * PREPARO IL COMANDO "rsync"
 				 */			
-				String CMD_bash="/bin/sh";
-				String rsync_cmd="";		
-				String rsync_path=pathRsync+"/rsync "; // dove si trova rsync
-				String login_at_machine=" "+userName+"@"+serverName+":"; // nome login e host remoto
+				String CMD_bash="/bin/sh"; //$NON-NLS-1$
+				String rsync_cmd="";		 //$NON-NLS-1$
+				String rsync_path=pathRsync+"/rsync "; // dove si trova rsync //$NON-NLS-1$
+				String login_at_machine=" "+userName+"@"+serverName+":"; // nome login e host remoto //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				String localPath = prj.getLocation().toPortableString(); // path locale del progetto
-				String fullExclude = excludeGlobal + " " + excludePrj + " "; // elenco completo delle esclusioni
-				if (remotePath.equals("") || userName.equals("") || serverName.equals(""))
+				String fullExclude = excludeGlobal + " " + excludePrj + " "; // elenco completo delle esclusioni //$NON-NLS-1$ //$NON-NLS-2$
+				if (remotePath.equals("") || userName.equals("") || serverName.equals("")) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				{
 					/**
 					 * cavolo... non ho impostato tutte le preferenze !!
 					 */
-					MessageDialog.openError(RsyncPlugin.getShell(),"Error","You need to setup the project preferences for rsync.");
+					MessageDialog.openError(RsyncPlugin.getShell(),Messages.MESG_ERROR,Messages.MESG_PROJECT_SETUP_REQUIRED);
 				} else {
 					// determino il tipo di azione da eseguire...
 					switch (cmdRsyncType)
 					{
 						case 1: // GET -- scarica il local gli aggiornamenti e sincronizza la copia locale con quella remota (che comanda)				
-							rsync_cmd= rsync_path + putGet + fullExclude + login_at_machine + remotePath + "/ " +  localPath;								
+							rsync_cmd= rsync_path + putGet + fullExclude + login_at_machine + remotePath + "/ " +  localPath;								 //$NON-NLS-1$
 							break;
 						case 2: // PUT -- carica il remoto gli aggiornamenti e sincronizza la copia remota con quella locale (che comanda)
-							rsync_cmd= rsync_path + putGet + fullExclude + localPath + "/ " + login_at_machine + remotePath;
+							rsync_cmd= rsync_path + putGet + fullExclude + localPath + "/ " + login_at_machine + remotePath; //$NON-NLS-1$
 							break;
 						case 3: // GET solo test di sincronizzazione
-							rsync_cmd= rsync_path + runDry + fullExclude + login_at_machine + remotePath + "/ " + localPath;
+							rsync_cmd= rsync_path + runDry + fullExclude + login_at_machine + remotePath + "/ " + localPath; //$NON-NLS-1$
 							break;
 						case 4: // PUT solo test di sincronizzazione
-							rsync_cmd= rsync_path + runDry + fullExclude + localPath + "/ " + login_at_machine + remotePath;
+							rsync_cmd= rsync_path + runDry + fullExclude + localPath + "/ " + login_at_machine + remotePath; //$NON-NLS-1$
 							break;
 						case 5: // GET -- scarica in locale gli aggiornamenti remoti -- non sincronziza
-							rsync_cmd= rsync_path + putGetOnly + fullExclude + login_at_machine + remotePath + "/ " + localPath;
+							rsync_cmd= rsync_path + putGetOnly + fullExclude + login_at_machine + remotePath + "/ " + localPath; //$NON-NLS-1$
 							break;
 						case 6: // PUT -- carica in remoto gli aggiornamenti locali -- non sincronizza
-							rsync_cmd= rsync_path + putGetOnly + fullExclude + localPath + "/ " + login_at_machine + remotePath;
+							rsync_cmd= rsync_path + putGetOnly + fullExclude + localPath + "/ " + login_at_machine + remotePath; //$NON-NLS-1$
 							break;					
 					}
-					String[] strCmd= {CMD_bash,"-c",rsync_cmd};
+					String[] strCmd= {CMD_bash,"-c",rsync_cmd}; //$NON-NLS-1$
 					//RsyncPlugin.consolePrintln(msgConsole+": "+rsync_cmd); // x DEBUG
 					
 					/**
@@ -226,9 +231,9 @@ public class RsyncPlugin extends AbstractUIPlugin {
 					 */		
 					try {
 						// scrivo in console cosa sto facendo
-						RsyncPlugin.consolePrintln("\n");
-						RsyncPlugin.consolePrintln("-----------------------------------------------------------------------------");
-						RsyncPlugin.consolePrintln(msgConsole+": "+rsync_cmd);
+						RsyncPlugin.consolePrintln("\n"); //$NON-NLS-1$
+						RsyncPlugin.consolePrintln("-----------------------------------------------------------------------------"); //$NON-NLS-1$
+						RsyncPlugin.consolePrintln(msgConsole+": "+rsync_cmd); //$NON-NLS-1$
 						Runtime rt = Runtime.getRuntime();
 						// eseguo il comando
 				        	Process pr = rt.exec(strCmd);
@@ -261,8 +266,8 @@ public class RsyncPlugin extends AbstractUIPlugin {
 				        		e.printStackTrace();
 				        }	
 				        
-				        RsyncPlugin.consolePrintln("\n");
-				        int exitVal =pr.waitFor();
+				        RsyncPlugin.consolePrintln("\n"); //$NON-NLS-1$
+				        pr.waitFor();
 				        pr.destroy(); // distruggo la referenza a rsync
 				        rt= null;
 				        pr=null;			
@@ -280,10 +285,10 @@ public class RsyncPlugin extends AbstractUIPlugin {
 				}
 				
 			} catch (NullPointerException e) {
-				MessageDialog.openError(RsyncPlugin.getShell(),"Error","Can't find the project preference for rsync");
+				MessageDialog.openError(RsyncPlugin.getShell(),Messages.MESG_ERROR,Messages.MESG_ERROR_MISSING_PROJECT_PREFERENCES);
 			}											
 		} else {
-			MessageDialog.openError(RsyncPlugin.getShell(),"Error","No selected project - Please select one from NAVIGATOR");			
+			MessageDialog.openError(RsyncPlugin.getShell(),Messages.MESG_ERROR,Messages.MESG_ERROR_NO_SELECTED_PROJECT);			
 		}
 	}
 		
@@ -302,6 +307,6 @@ public class RsyncPlugin extends AbstractUIPlugin {
 	 * @return the image descriptor
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
-		return AbstractUIPlugin.imageDescriptorFromPlugin("rsync", path);
+		return AbstractUIPlugin.imageDescriptorFromPlugin("rsync", path); //$NON-NLS-1$
 	}
 }

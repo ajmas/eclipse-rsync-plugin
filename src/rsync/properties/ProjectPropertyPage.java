@@ -14,10 +14,10 @@ import org.eclipse.ui.dialogs.PropertyPage;
 
 public class ProjectPropertyPage extends PropertyPage {
 
-	private static final String SERVERNAME_TITLE = "Server name:";
-	private static final String USERNAME_TITLE = "User name:";
-	private static final String REMOTEPATH_TITLE = "Remote path";
-	private static final String EXCLUDE_TITLE = "Do not sycronize the following dirs/files:\n(use --exclude='XYZ' for each exclusion):";
+	private static final String SERVERNAME_TITLE = Messages.MESG_SERVER_NAME;
+	private static final String USERNAME_TITLE = Messages.MESG_USER_NAME;
+	private static final String REMOTEPATH_TITLE = Messages.MESG_REMOTE_PATH;
+	private static final String EXCLUDE_TITLE = Messages.MESG_DO_NOT_SYNC_SELECTED_DIRS;
 	
 	private Text serverText;
 	private Text userText;
@@ -52,10 +52,10 @@ public class ProjectPropertyPage extends PropertyPage {
 		serverText.setLayoutData(gd);
 
 		try {
-			String serverValue = ((IResource) getElement()).getPersistentProperty(new QualifiedName("", IProperty.SERVERNAME));
-			serverText.setText((serverValue != null) ? serverValue : "");
+			String serverValue = ((IResource) getElement()).getPersistentProperty(new QualifiedName("", IProperty.SERVERNAME)); //$NON-NLS-1$
+			serverText.setText((serverValue != null) ? serverValue : ""); //$NON-NLS-1$
 		} catch (CoreException e) {
-			serverText.setText("");
+			serverText.setText(""); //$NON-NLS-1$
 		}		
 		
 		/*
@@ -70,10 +70,10 @@ public class ProjectPropertyPage extends PropertyPage {
 
 
 		try {
-			String userValue = ((IResource) getElement()).getPersistentProperty(new QualifiedName("", IProperty.USERNAME));
-			userText.setText((userValue != null) ? userValue : "");
+			String userValue = ((IResource) getElement()).getPersistentProperty(new QualifiedName("", IProperty.USERNAME)); //$NON-NLS-1$
+			userText.setText((userValue != null) ? userValue : ""); //$NON-NLS-1$
 		} catch (CoreException e) {
-			userText.setText("");
+			userText.setText(""); //$NON-NLS-1$
 		}	
 		
 		/*
@@ -88,10 +88,10 @@ public class ProjectPropertyPage extends PropertyPage {
 
 
 		try {
-			String serverPathValue = ((IResource) getElement()).getPersistentProperty(new QualifiedName("", IProperty.REMOTEPATH));
-			remotepathText.setText((serverPathValue != null) ? serverPathValue : "");
+			String serverPathValue = ((IResource) getElement()).getPersistentProperty(new QualifiedName("", IProperty.REMOTEPATH)); //$NON-NLS-1$
+			remotepathText.setText((serverPathValue != null) ? serverPathValue : ""); //$NON-NLS-1$
 		} catch (CoreException e) {
-			remotepathText.setText("");
+			remotepathText.setText(""); //$NON-NLS-1$
 		}		
 
 		/*
@@ -108,10 +108,10 @@ public class ProjectPropertyPage extends PropertyPage {
 
 
 		try {
-			String excludeValue = ((IResource) getElement()).getPersistentProperty(new QualifiedName("", IProperty.EXCLUDE));
-			excludeText.setText((excludeValue != null) ? excludeValue : "");
+			String excludeValue = ((IResource) getElement()).getPersistentProperty(new QualifiedName("", IProperty.EXCLUDE)); //$NON-NLS-1$
+			excludeText.setText((excludeValue != null) ? excludeValue : ""); //$NON-NLS-1$
 		} catch (CoreException e) {
-			excludeText.setText("");
+			excludeText.setText(""); //$NON-NLS-1$
 		}			
 	}
 
@@ -147,10 +147,10 @@ public class ProjectPropertyPage extends PropertyPage {
 
 	protected void performDefaults() {
 		// Populate the owner text field with the default value
-		serverText.setText("");
-		userText.setText("");
-		remotepathText.setText("");
-		excludeText.setText("");	
+		serverText.setText(""); //$NON-NLS-1$
+		userText.setText(""); //$NON-NLS-1$
+		remotepathText.setText(""); //$NON-NLS-1$
+		excludeText.setText("");	 //$NON-NLS-1$
 	}
 	
 	public boolean performOk() {
@@ -160,7 +160,7 @@ public class ProjectPropertyPage extends PropertyPage {
 		 */
 		try {
 			((IResource) getElement()).setPersistentProperty(
-				new QualifiedName("", IProperty.SERVERNAME),
+				new QualifiedName("", IProperty.SERVERNAME), //$NON-NLS-1$
 				serverText.getText());
 		} catch (CoreException e) {
 			return false;
@@ -171,7 +171,7 @@ public class ProjectPropertyPage extends PropertyPage {
 		 */		
 		try {
 			((IResource) getElement()).setPersistentProperty(
-				new QualifiedName("", IProperty.USERNAME),
+				new QualifiedName("", IProperty.USERNAME), //$NON-NLS-1$
 				userText.getText());
 		} catch (CoreException e) {
 			return false;
@@ -183,7 +183,7 @@ public class ProjectPropertyPage extends PropertyPage {
 		 */
 		try {
 			((IResource) getElement()).setPersistentProperty(
-				new QualifiedName("", IProperty.REMOTEPATH),
+				new QualifiedName("", IProperty.REMOTEPATH), //$NON-NLS-1$
 				remotepathText.getText());
 		} catch (CoreException e) {
 			return false;
@@ -194,7 +194,7 @@ public class ProjectPropertyPage extends PropertyPage {
 		 */
 		try {
 			((IResource) getElement()).setPersistentProperty(
-				new QualifiedName("", IProperty.EXCLUDE),
+				new QualifiedName("", IProperty.EXCLUDE), //$NON-NLS-1$
 				excludeText.getText());
 		} catch (CoreException e) {
 			return false;

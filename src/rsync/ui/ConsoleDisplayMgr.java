@@ -4,7 +4,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
-
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 /*
@@ -50,7 +49,7 @@ public class ConsoleDisplayMgr
 		MessageConsoleStream msgConsoleStream = m_MessageConsole.newMessageStream();	
 		
 		if (msgConsoleStream == null) {
-			System.out.print("Error getting console message stream");
+			System.out.print(Messages.MESG_ERROR_GETTING_CONSOLE_STREAM);
 		}else{
 			msgConsoleStream.setColor(Display.getCurrent().getSystemColor(swtColorId));
 		}

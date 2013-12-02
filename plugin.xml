@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
-<plugin>
+ 
+ <plugin>
 
    <extension
          point="org.eclipse.ui.popupMenus">
@@ -8,69 +9,76 @@
             adaptable="true"
             id="rsync.menu"
             objectClass="org.eclipse.core.resources.IProject">
+            
          <menu
-               id="rsync.menu"
-               label="Rsync simula"
-               path="rsync_plugin.mainMenu.separator1">
+			id="rsync.menu"
+			label="%mesg.rsync.menu"
+			path="rsync_plugin.mainMenu.separator1">
             <separator name="group"/>
          </menu>
+         		
 		<menu
-        id="rsync.menu_sync"
-        label="Rsync sincronizza"
-        path="rsync_plugin.mainMenu.separator1">
-    		    <separator name="group"/>
-    		</menu>
+			id="rsync.menu_sync"
+			label="%mesg.rsync.menu_sync"
+			path="rsync_plugin.mainMenu.separator1">
+    		<separator name="group"/>
+    	</menu>
+    	
 		<menu
-        id="rsync.menu_upload_download"
-        label="Rsync upload/download"
-        path="rsync_plugin.mainMenu.separator1">
-    		    <separator name="group"/>
-    		</menu>    		
+			id="rsync.menu_upload_download"
+			label="%mesg.rsync.menu_upload_download"
+			path="rsync_plugin.mainMenu.separator1">
+    	    <separator name="group"/>
+    	</menu>    		
     		    
 
          <action
 			class="rsync.actions.rsyncGetRundry"
 			definitionId="rsync.actions.rsyncGetRundry"
 			id="rsync.actions.rsyncGetRundry_Item"
-			label="Only test what can be downloaded from the remote server"
+			label="%mesg.rsync.actions.rsyncGetRundry_Item"
 			menubarPath="rsync.menu/group"/>
+			
 		<action
 	        class="rsync.actions.rsyncPutRundry"
 	        definitionId="rsync.actions.rsyncPutRundry"
 	        id="rsync.actions.rsyncPutRundry_Item"
-			label="Only test what can be uploaded to the remote server"
+			label="%mesg.rsync.actions.rsyncPutRundry_Item"
 	        menubarPath="rsync.menu/group"/>
 
          <action
 			class="rsync.actions.rsyncGet"
 			definitionId="rsync.actions.rsyncGet"
 			id="rsync.actions.rsyncGet_Item"
-			label="Syncronize local project"
+			label="%mesg.rsync.actions.rsyncGet_Item"
 			menubarPath="rsync.menu_sync/group"/>
+			
 		<action
 	        class="rsync.actions.rsyncPut"
 	        definitionId="rsync.actions.rsyncPut"
 	        id="rsync.actions.rsyncPut_Item"
-			label="Syncronize remote project"
+			label="%mesg.rsync.actions.rsyncPut_Item"
 	        menubarPath="rsync.menu_sync/group"/>
 
          <action
 			class="rsync.actions.rsyncGetOnly"
 			definitionId="rsync.actions.rsyncGetOnly"
 			id="rsync.actions.rsyncGetOnly_Item"
-			label="Upload to remote server"
+			label="%mesg.rsync.actions.rsyncGetOnly_Item"
 			menubarPath="rsync.menu_upload_download/group"/>
+			
 		<action
 	        class="rsync.actions.rsyncPutOnly"
 	        definitionId="rsync.actions.rsyncPutOnly"
 	        id="rsync.actions.rsyncPutOnly_Item"
-			label="Download from remote server"
+			label="%mesg.rsync.actions.rsyncPutOnly_Item"
 	        menubarPath="rsync.menu_upload_download/group"/>
-  <menu
-        id="rsync_plugin.mainMenu"
-        label="Rsync">
-     <separator name="rsync_plugin.separator1"/>
-  </menu>
+	        
+        <menu
+			id="rsync_plugin.mainMenu"
+			label="%mesg.rsync_plugin.mainMenu">
+            <separator name="rsync_plugin.separator1"/>
+        </menu>
         
       </objectContribution>
    </extension>
@@ -79,7 +87,7 @@
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            name="Rsync"
+            name="%mesg.rsync.preferences.RsyncPreferencePage"
             class="rsync.preferences.RsyncPreferencePage"
             id="rsync.preferences.RsyncPreferencePage">
       </page>
@@ -96,7 +104,7 @@
       <page
             class="rsync.properties.ProjectPropertyPage"
             id="rsync.properties.ProjectPropertyPage"
-            name="Rsync"
+            name="%mesg.rsync.properties.ProjectPropertyPage"
             objectClass="org.eclipse.core.resources.IProject"/>
    </extension>
    
@@ -104,12 +112,12 @@
 <extension
          point="org.eclipse.ui.actionSets">
       <actionSet
-            label="Rsync"
+            label="%mesg.rsync.actionSet"
             visible="true"
             id="rsync.actionSet">
          <menu
                id="rsync.actionSet.mainMenu"
-               label="&amp;Rsync">
+               label="%mesg.rsync.actionSet.mainMenu">
             <separator
                   name="Sincronizza">
             </separator>
@@ -120,55 +128,55 @@
                class="rsync.actions.rsyncGetRundry"
                icon="icons/test_local_remote.gif"
                id="rsync.actions.rsyncGetRundry"
-               label="Only test what can be downloaded from the remote server"
+               label="%mesg.rsync.actions.rsyncGetRundry.label"
                menubarPath="rsync.actionSet.mainMenu/Simula"
                toolbarPath="Simula"
-               tooltip="Only test what can be downloaded from the remote server">
+               tooltip="%mesg.rsync.actions.rsyncGetRundry.tooltop">
          </action>
          <action
                class="rsync.actions.rsyncPutRundry"
                icon="icons/test_remote_local.gif"
                id="rsync.actions.rsyncPutRundry"
-               label="Only test what can be uploaded to the remote server"
+               label="%mesg.rsync.actions.rsyncPutRundry.label"
                menubarPath="rsync.actionSet.mainMenu/Simula"
                toolbarPath="Simula"
-               tooltip="Only test what can be uploaded to the remote server">
+               tooltip="%mesg.rsync.actions.rsyncPutRundry.tooltip">
          </action>          
          <action
                class="rsync.actions.rsyncGet"
                icon="icons/sync_remote_local.gif"
                id="rsync.actions.rsyncGet"
-               label="Syncronize local project"
+               label="%mesg.rsync.actions.rsyncGet.label"
                menubarPath="rsync.actionSet.mainMenu/Sincronizza"
                toolbarPath="Sincronizza"
-               tooltip="Syncronize local project">
+               tooltip="%mesg.rsync.actions.rsyncGet.tooltip">
          </action>
          <action
                class="rsync.actions.rsyncPut"
                icon="icons/sync_local_remote.gif"
                id="rsync.actions.rsyncPut"
-               label="Syncronize remote project"
+               label="%mesg.rsync.actions.rsyncPut.label"
                menubarPath="rsync.actionSet.mainMenu/Sincronizza"
                toolbarPath="Sincronizza"
-               tooltip="Syncronize remote project">
+               tooltip="%mesg.rsync.actions.rsyncPut.tooltip">
          </action> 
          <action
                class="rsync.actions.rsyncGetOnly"
                icon="icons/download.gif"
                id="rsync.actions.rsyncGetOnly"
-               label="Download from remote server"
+               label="%mesg.rsync.actions.rsyncGetOnly.label"
                menubarPath="rsync.actionSet.mainMenu/Upload_Download"
                toolbarPath="Upload_Download"
-               tooltip="Download from remote server">
+               tooltip="%mesg.rsync.actions.rsyncGetOnly.tooltip">
          </action>
          <action
                class="rsync.actions.rsyncPutOnly"
                icon="icons/upload.gif"
                id="rsync.actions.rsyncPutOnly"
-               label="Upload to remote server"
+               label="%mesg.rsync.actions.rsyncPutOnly.label"
                menubarPath="rsync.actionSet.mainMenu/Upload_Download"
                toolbarPath="Upload_Download"
-               tooltip="Upload to remote server">
+               tooltip="%mesg.rsync.actions.rsyncPutOnly.tooltip">
          </action>
       </actionSet>
    </extension>   

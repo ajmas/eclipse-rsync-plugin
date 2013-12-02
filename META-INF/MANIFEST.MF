@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Rsync Plug-in
-Bundle-SymbolicName: rsync; singleton:=true
+Bundle-Name: %plugin.name
+Bundle-SymbolicName: Eclipse_Rsync_Plugin;singleton:=true
 Bundle-Version: 0.0.5
 Bundle-Activator: rsync.RsyncPlugin
 Bundle-Localization: plugin
